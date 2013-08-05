@@ -4,6 +4,6 @@ from django.views.generic import RedirectView
 from cloudmeta.apps.userdata import views
 
 urlpatterns = patterns('',
-    url(r'^$', views.index, name='index'),
+    url(r'^$', views.user_data, name='user_data'),
 )
 

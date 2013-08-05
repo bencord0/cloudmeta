@@ -204,6 +204,8 @@ THIRD_PARTY_APPS = (
 )
 
 LOCAL_APPS = (
+    'cloudmeta.apps.metadata',
+    'cloudmeta.apps.userdata',
 )
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps

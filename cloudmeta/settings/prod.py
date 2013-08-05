@@ -3,8 +3,6 @@
 
 from os import environ
 
-from memcacheify import memcacheify
-from postgresify import postgresify
 from S3 import CallingFormat
 
 from common import *
@@ -35,17 +33,6 @@ EMAIL_USE_TLS = True
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#server-email
 SERVER_EMAIL = EMAIL_HOST_USER
 ########## END EMAIL CONFIGURATION
-
-
-########## DATABASE CONFIGURATION
-DATABASES = postgresify()
-########## END DATABASE CONFIGURATION
-
-
-########## CACHE CONFIGURATION
-# See: https://docs.djangoproject.com/en/dev/ref/settings/#caches
-CACHES = memcacheify()
-########## END CACHE CONFIGURATION
 
 
 ########## CELERY CONFIGURATION
@@ -123,15 +110,4 @@ COMPRESS_JS_FILTERS += [
     'compressor.filters.jsmin.JSMinFilter',
 ]
 ########## END COMPRESSION CONFIGURATION
-
-
-########## SECRET CONFIGURATION
-# See: https://docs.djangoproject.com/en/dev/ref/settings/#secret-key
-SECRET_KEY = environ.get('SECRET_KEY', SECRET_KEY)
-########## END SECRET CONFIGURATION
-
-########## ALLOWED HOSTS CONFIGURATION
-# See: https://docs.djangoproject.com/en/dev/ref/settings/#allowed-hosts
-ALLOWED_HOSTS = [ allowed_host.strip() for allowed_host in environ.get('ALLOWED_HOSTS', '.herokuapp.com').split(',')]
-########## END ALLOWED HOST CONFIGURATION
 

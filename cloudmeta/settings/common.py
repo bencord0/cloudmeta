@@ -11,6 +11,7 @@ from djcelery import setup_loader
 truthy = ['True', 'true', 'Y', 'y', '1']
 
 import dj_database_url
+from memcacheify import memcacheify
 
 
 ########## PATH CONFIGURATION
@@ -38,6 +39,14 @@ TEMPLATE_DEBUG = DEBUG
 ########## END DEBUG CONFIGURATION
 
 
+########## EMAIL CONFIGURATION
+# See: https://docs.djangoproject.com/en/dev/ref/settings/#email-backend
+EMAIL_VIA_CONSOLE = 'django.core.mail.backends.console.EmailBackend'
+EMAIL_VIA_SMTP = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_BACKEND = EMAIL_VIA_CONSOLE if DEBUG else EMAIL_VIA_SMTP
+########## END EMAIL CONFIGURATION
+
+
 ########## MANAGER CONFIGURATION
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#admins
 # Set the environment ADMINS variable from a comma separated list of
@@ -52,8 +61,17 @@ MANAGERS = ADMINS
 ########## DATABASE CONFIGURATION
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#databases
 # https://github.com/kennethreitz/dj-database-url
-DATABASES = {'default': dj_database_url.config()}
+DATABASES = {'default': dj_database_url.config(
+    default='sqlite:///{}'.format(normpath(join(DJANGO_ROOT, 'default.db'))))}
 ########## END DATABASE CONFIGURATION
+
+
+########## CACHE CONFIGURATION
+# See: https://docs.djangoproject.com/en/dev/ref/settings/#caches
+# https://github.com/rdegges/django-heroku-memcacheify
+# Will use local memory caching as a backup
+CACHES = memcacheify()
+########## END CACHE CONFIGURATION
 
 
 ########## GENERAL CONFIGURATION
@@ -253,9 +271,10 @@ LOGGING = {
 ########## CELERY CONFIGURATION
 # See: http://celery.readthedocs.org/en/latest/configuration.html#celery-task-result-expires
 CELERY_TASK_RESULT_EXPIRES = timedelta(minutes=30)
-
 # See: http://celery.github.com/celery/django/
 setup_loader()
+# See: http://docs.celeryq.org/en/latest/configuration.html#celery-always-eager
+CELERY_ALWAYS_EAGER = DEBUG
 ########## END CELERY CONFIGURATION
 
 
@@ -279,3 +298,10 @@ COMPRESS_JS_FILTERS = [
     'compressor.filters.template.TemplateFilter',
 ]
 ########## END COMPRESSION CONFIGURATION
+
+
+########## ALLOWED HOSTS CONFIGURATION
+# See: https://docs.djangoproject.com/en/dev/ref/settings/#allowed-hosts
+ALLOWED_HOSTS = [ allowed_host.strip() for allowed_host in environ.get('ALLOWED_HOSTS', '.herokuapp.com').split(',')]
+########## END ALLOWED HOST CONFIGURATION
+

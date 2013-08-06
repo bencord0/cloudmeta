@@ -4,7 +4,7 @@ from django.shortcuts import get_object_or_404
 from cloudmeta.apps.metadata.models import KEYTYPE_CHOICES, Node
 
 def _get_node(request):
-    remote_addr = request.META['REMOTE_ADDR']
+    remote_addr = request.META['HTTP_X_REAL_IP'] or request.META['REMOTE_ADDR']
     try:
         node = Node.objects.get(name=remote_addr)
     except Node.DoesNotExist:

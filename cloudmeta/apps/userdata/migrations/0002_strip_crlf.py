@@ -10,7 +10,7 @@ class Migration(DataMigration):
         for ud in orm.UserData.objects.all():
             # ud is the old UserData model, it does not have the new
             # .save() method to do the stripping for us.
-            ud.data = '\n'.join(ud.data.split('\n'))
+            ud.data = '\n'.join(ud.data.split('\r\n'))
             ud.save()
 
     def backwards(self, orm):

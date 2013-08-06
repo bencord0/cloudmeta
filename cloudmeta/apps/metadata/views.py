@@ -13,7 +13,8 @@ def _get_node(request):
     return node
 
 def index(request):
-    return HttpResponse("meta-data service: {meta[REMOTE_ADDR]}".format(meta=request.META))
+    return HttpResponse("meta-data service: {}".format(
+        request.META['HTTP_X_REAL_IP'] or request.META['REMOTE_ADDR']))
 
 def hostname(request):
     node = _get_node(request)

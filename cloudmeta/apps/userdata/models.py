@@ -12,7 +12,7 @@ class UserData(models.Model):
     data = models.TextField()
 
     def save(self, *args, **kwargs):
-        def strip_crlf(self, text):
+        def strip_crlf(text):
             return '\n'.join(text.split('\r\n'))
         self.data = strip_crlf(self.data)
         super(UserData, self).save(*args, **kwargs)

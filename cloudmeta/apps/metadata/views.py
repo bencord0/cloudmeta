@@ -30,7 +30,7 @@ def openssh_key(request, idx=0):
     '''
     node = _get_node(request)
     openssh_keys = node.public_keys.all()
-    if idx > 0:
+    if int(idx) > 0:
         openssh_keys = [openssh_keys[int(idx) - 1]]
 
     ssh_template = "{keytype} {key} {host}\n"

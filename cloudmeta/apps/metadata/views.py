@@ -21,12 +21,25 @@ def hostname(request):
     return HttpResponse(node.hostname)
 
 def openssh_key(request, idx=0):
-    node = _get_node(request)
-    openssh_key = node.public_keys.all()[int(idx)]
-    ssh_template = "{keytype} {key} {host}"
+    '''
+    The default and defacto usage of key indexes is to use the zero'th key.
+    I don't know who usees the other indexes, and what for.
 
-    return HttpResponse(ssh_template.format(
-        keytype = dict(KEYTYPE_CHOICES)[openssh_key.keytype],
-        key = openssh_key.key,
-        host = openssh_key.host))
+    So I'm going to use the 0th index to mean all keys configured, then you
+    can pick out individual keys using the ith-1 index.
+    '''
+    node = _get_node(request)
+    openssh_keys = node.public_keys.all()
+    if idx > 0:
+        openssh_keys = [openssh_keys[int(idx) - 1]]
+
+    ssh_template = "{keytype} {key} {host}\n"
+    response = ""
+    for openssh_key in openssh_keys:
+        response += ssh_template.format(
+            keytype = dict(KEYTYPE_CHOICES)[openssh_key.keytype],
+            key = openssh_key.key,
+            host = openssh_key.host)
+
+    return HttpResponse(response)
     

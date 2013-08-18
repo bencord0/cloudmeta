@@ -3,9 +3,9 @@ from django.db import models
 KEYTYPE_CHOICES = (
     ('RSA', 'ssh-rsa'),
     ('DSA', 'ssh-dsa'),
-    ('ECC-256', 'ecdsa-sha2-nistp256'),
-    ('ECC-384', 'ecdsa-sha2-nistp384'),
-    ('ECC-521', 'ecdsa-sha2-nistp521'),
+    ('ECC256', 'ecdsa-sha2-nistp256'),
+    ('ECC384', 'ecdsa-sha2-nistp384'),
+    ('ECC521', 'ecdsa-sha2-nistp521'),
 )
 
 class Node(models.Model):

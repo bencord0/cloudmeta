@@ -3,7 +3,8 @@ from django.db import models
 KEYTYPE_CHOICES = (
     ('RSA', 'ssh-rsa'),
     ('DSA', 'ssh-dsa'),
-    ('ECC', 'ecdsa-sha2-nistp256'),
+    ('ECC-256', 'ecdsa-sha2-nistp256'),
+    ('ECC-521', 'ecdsa-sha2-nistp521'),
 )
 
 class Node(models.Model):
@@ -16,7 +17,7 @@ class Node(models.Model):
 
 class OpensshKey(models.Model):
     name = models.CharField(unique=True, max_length=256)
-    keytype = models.CharField(max_length=3, choices=KEYTYPE_CHOICES)
+    keytype = models.CharField(max_length=6, choices=KEYTYPE_CHOICES)
     key = models.TextField()
     host = models.CharField(max_length=256, blank=True)
 

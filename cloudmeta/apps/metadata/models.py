@@ -4,6 +4,7 @@ KEYTYPE_CHOICES = (
     ('RSA', 'ssh-rsa'),
     ('DSA', 'ssh-dsa'),
     ('ECC-256', 'ecdsa-sha2-nistp256'),
+    ('ECC-384', 'ecdsa-sha2-nistp384'),
     ('ECC-521', 'ecdsa-sha2-nistp521'),
 )
 

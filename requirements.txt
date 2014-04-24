@@ -1,2 +1,6 @@
--r reqs/prod.txt
-pylibmc==1.2.3
+Django
+django-celery
+dj-database-url
+dj-static
+Sphinx
+gunicorn

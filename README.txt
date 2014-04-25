@@ -11,17 +11,29 @@ bootstrapping cloudy virtual machines is the defacto method for cloud-init.
 Usage
 =====
 
-    $ virtualenv --distribute cloudmeta && cd cloudmeta
-    $ source ./bin/activate
-    (cloudmeta)$ pip install -r requirements.txt
-    (cloudmeta)$ pip intsall -e .
-    (cloudmeta)$ cloudmeta
+Installation
+------------
+    $ virtualenv venv
+        or
+    $ pyvenv-3.4 venv
+    $ source venv/bin/activate
+    (venv)$ pip install -r requirements.txt
+        or
+    (venv)$ pip install -e .
+
+Running the service
+-------------------
+    (venv)$ cloudmeta
+        or
+    (venv)$ python cloudmeta/wsgi.py
+        or
+    (venv)$ honcho (if using the Procfile)
 
 The server will now be listening on port 8000. Feel free to connect to it from a browser.
 
 To login to the admin interface, you will need to create a super user.
 
-    (cloudmeta)$ python manage.py createsuperuser
+    (venv)$ python manage.py createsuperuser
 
 You only need to do this once per deployment.
 
@@ -77,6 +89,7 @@ A local sqlite database will be used if unset.
 
     (cloudmeta)$ DATABASE_URL=postgres://username:password@host:port/db_name
 
+The default will use a local sqlite database.
 
 PORT
 ----
@@ -94,11 +107,11 @@ Local Dependencies
 
 Gentoo
 ------
-Recompile python with USE=sqlite
-Also install
-	dev-python/virtualenv
-	dev-db/postgresql-base
-	dev-libs/libmemcached
+For python versions prior to 3.4, install dev-python/virtualenv.
+Recompile python with USE=sqlite or install database header files
+    dev-db/postgresql-base or dev-db/mysql
+You may also need to install their python bindings
+    dev-python/psycopg or dev-python/mysql-python
 
 Debian/Ubuntu
 =============

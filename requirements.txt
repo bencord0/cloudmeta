@@ -1,5 +1,4 @@
 Django
-django-celery
 dj-database-url
 dj-static
 Sphinx

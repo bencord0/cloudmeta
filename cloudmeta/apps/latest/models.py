@@ -7,16 +7,18 @@ class Node(models.Model):
     sshkeys = models.ManyToManyField('SshKey')
     userdata = models.ForeignKey('UserData')
 
-    def __unicode__(self):
+    def __str__(self):
         return self.name
+    __unicode__ = __str__
 
 
 class SshKey(models.Model):
     name = models.CharField(unique=True, max_length=256)
     key = models.TextField()
 
-    def __unicode__(self):
+    def __str__(self):
         return self.name
+    __unicode__ = __str__
 
 
 class UserData(models.Model):
@@ -29,5 +31,6 @@ class UserData(models.Model):
         self.data = strip_crlf(self.data)
         super(UserData, self).save(*args, **kwargs)
 
-    def __unicode__(self):
+    def __str__(self):
         return self.name
+    __unicode__ = __str__

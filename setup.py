@@ -9,5 +9,12 @@ setup(name='cloudmeta',
         'console_scripts': [
             'cloudmeta = cloudmeta.wsgi:main'
             ]
-        }
+    },
+    install_requires=[
+        'Django',
+        'dj-database-url',
+        'dj-static',
+        'Sphinx',
+        'gunicorn',
+    ],
 )

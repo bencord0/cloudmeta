@@ -15,6 +15,5 @@ urlpatterns = patterns('',
     url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
     url(r'^admin/', include(admin.site.urls)),
 
-    url(r'^latest/meta-data/', include('cloudmeta.apps.metadata.urls')),
-    url(r'^latest/user-data/', include('cloudmeta.apps.userdata.urls')),
+    url(r'^latest/', include('cloudmeta.apps.latest.urls')),
 )

@@ -17,8 +17,7 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'gunicorn',
 
-    'cloudmeta.apps.metadata',
-    'cloudmeta.apps.userdata',
+    'cloudmeta.apps.latest',
 )
 
 LOGGING = {

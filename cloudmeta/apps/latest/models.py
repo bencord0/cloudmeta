@@ -2,13 +2,13 @@ from django.db import models
 
 
 class Node(models.Model):
-    name = models.CharField(unique=True, primary_key=True, max_length=256)
+    address = models.CharField(unique=True, primary_key=True, max_length=256)
     hostname = models.CharField(blank=True, max_length=256)
     sshkeys = models.ManyToManyField('SshKey')
     userdata = models.ForeignKey('UserData')
 
     def __str__(self):
-        return self.name
+        return self.address
     __unicode__ = __str__
 
 

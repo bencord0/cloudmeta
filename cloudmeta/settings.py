@@ -2,6 +2,9 @@ import os
 import uuid
 import dj_database_url
 
+DEBUG=os.environ.get('DEBUG', 'False') == 'True'
+TEMPLATE_DEBUG = DEBUG
+
 ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', '*').split(',')
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
